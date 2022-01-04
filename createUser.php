@@ -12,22 +12,22 @@
     <link rel="stylesheet" href="Styles/global.css"/>
 </head>
 <body> -->
+    <?php include 'header.php' ?>
     <div class="block-center">
     <?php
         $accountType = $_POST['accountType'];
         $username = strtolower($_POST['username']); 
-     //Check if username already exists
 
         $Admin_Username_Query = "
-        SELECT * FROM Admins WHERE username='{$username}'
+        SELECT * FROM admins WHERE username='{$username}'
         ";
 
         $Trainer_Username_Query = "
-        SELECT * FROM Trainers WHERE username='{$username}'
+        SELECT * FROM trainers WHERE username='{$username}'
         ";
 
         $Boxer_Username_Query = "
-        SELECT * FROM Boxers WHERE username='{$username}'
+        SELECT * FROM boxers WHERE username='{$username}'
         ";
 
         $adminUsernames = mysqli_query($CONNECTION, $Admin_Username_Query);
@@ -56,8 +56,6 @@
             die();
         }
 
-        //korisnicko ime je novo
-
         $gender = $_POST['gender'] == "1" ? 1 : 0;
 
         $profilePictureName = $_FILES['profilePicture']['name'];
@@ -85,7 +83,7 @@
 
                     $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-                    $id = uniqid('boxer_'); //create uniqueID
+                    $id = uniqid('boxer_');
 
                     if ($accountType == 'boxer') {
                         $CREATE_BOXER = "
@@ -124,86 +122,50 @@
                         );
                     ";
 
-                    if (mysqli_query($CONNECTION, $CREATE_BOXER)) {
-                        echo "
-                            <div class='alert bg-success'>
-                                <h2>Nalog admina uspesno kreiran!</h2>
+                        if (mysqli_query($CONNECTION, $CREATE_BOXER)) {
+                            $generatedId = uniqid();
 
-                                <p class='mt-1'>Uspesno ste kreirali nalog pacijenta.</p>
-                            </div>
+                            $Create_Verification_Query = "
+                                INSERT INTO `Verification` (
+                                    `id`,
+                                    `for`
+                                ) VALUES (
+                                    '{$generatedId}',
+                                    '$id'
+                                );
+                            ";
 
+                            $verificationResult = mysqli_query($CONNECTION, $Create_Verification_Query);
 
-                            <div style='text-align: center'>
-                                <button 
-                                    class='size-lg mt-1 bg-success'
-                                    onClick='location.href = `login.php`'
-                                >
-                                Prijavite se
-                                </button>
-                            </div>
-                        ";
-                    } else {
-                        echo "
-                            <div class='alert bg-danger'>
-                                <h2>Doslo je do greske!</h2>
-
-                                <p class='mt-1'>Proverite informacije i probajte ponovo.</p>
-                            </div>
-
-                            <div style='text-align: center'>
-                                <button 
-                                    class='size-lg mt-1 bg-danger'
-                                    onClick='location.href = `register.php`'
-                                >
-                                Nazad
-                                </button>
-                            </div>
-                        ";
-                    }
-
-                        //     $generatedId = uniqid(); 
-
-                        //     $Create_Verification_Query = "
-                        //         INSERT INTO `Verification` (
-                        //             `id`,
-                        //             `for`
-                        //         ) VALUES (
-                        //             '{$generatedId}',
-                        //             '$id'
-                        //         );
-                        //     ";
-
-                        //     $verificationResult = mysqli_query($CONNECTION, $Create_Verification_Query);
-
-                        //     if($verificationResult) {
-                        //         $_SESSION['created'] = array('name' => $_POST['name'],
-                        //         'lastname' => $_POST['lastname'],
-                        //         'email' => $_POST['email'],
-                        //         'type' => 'Boxers',
-                        //         'id' => "{$id}",
-                        //         'for' => "{$generatedId}"
-                        //         );
+                            if($verificationResult) {
+                                $_SESSION['created'] = array('name' => $_POST['name'],
+                                'lastname' => $_POST['lastname'],
+                                'email' => $_POST['email'],
+                                'type' => 'Boxers',
+                                'id' => "{$id}",
+                                'for' => "{$generatedId}"
+                                );
     
-                        //         header("Location: sendVerifyEmail.php");
-                        //     }
-                        // } else {
-                        //     echo "
-                        //         <div class='alert bg-danger'>
-                        //             <h2>Doslo je do greske!</h2>
+                                header("Location: sendVerifyEmail.php");
+                            }
+                        } else {
+                            echo "
+                                <div class='alert bg-danger'>
+                                    <h2>Doslo je do greske!</h2>
 
-                        //             <p class='mt-1'>Proverite informacije i probajte ponovo.</p>
-                        //         </div>
+                                    <p class='mt-1'>Proverite informacije i probajte ponovo.</p>
+                                </div>
 
-                        //         <div style='text-align: center'>
-                        //             <button 
-                        //                 class='size-lg mt-1 bg-danger'
-                        //                 onClick='location.href = `register.php`'
-                        //             >
-                        //             Nazad
-                        //             </button>
-                        //         </div>
-                        //     ";
-                        // }
+                                <div style='text-align: center'>
+                                    <button 
+                                        class='size-lg mt-1 bg-danger'
+                                        onClick='location.href = `register.php`'
+                                    >
+                                    Nazad
+                                    </button>
+                                </div>
+                            ";
+                        }
                     } else if ($accountType == 'trainer') {
                         $id = uniqid('trainer_');
 
@@ -241,85 +203,49 @@
                         );
                     ";
 
-                    if (mysqli_query($CONNECTION, $CREATE_TRAINER)) {
-                        echo "
-                            <div class='alert bg-success'>
-                                <h2>Nalog admina uspesno kreiran!</h2>
+                        if (mysqli_query($CONNECTION, $CREATE_TRAINER)) {
+                            $generatedId = uniqid();
 
-                                <p class='mt-1'>Uspesno ste kreirali nalog lekara.</p>
-                            </div>
+                            $Create_Verification_Query = "
+                                INSERT INTO `Verification` (
+                                    `id`,
+                                    `for`
+                                ) VALUES (
+                                    '{$generatedId}',
+                                    '$id'
+                                );
+                            ";
 
+                            $verificationResult = mysqli_query($CONNECTION, $Create_Verification_Query);
 
-                            <div style='text-align: center'>
-                                <button 
-                                    class='size-lg mt-1 bg-success'
-                                    onClick='location.href = `login.php`'
-                                >
-                                Prijavite se
-                                </button>
-                            </div>
-                        ";
-                    } else {
-                        echo "
-                            <div class='alert bg-danger'>
-                                <h2>Doslo je do greske!</h2>
+                            if($verificationResult) {
+                                $_SESSION['created'] = array('name' => $_POST['name'],
+                                'lastname' => $_POST['lastname'],
+                                'email' => $_POST['email'],
+                                'type' => 'Trainers',
+                                'id' => "{$id}",
+                                'for' => "{$generatedId}"
+                                );
+                                header("Location: sendVerifyEmail.php");
+                            }
+                        } else {
+                            echo "
+                                <div class='alert bg-danger'>
+                                    <h2>Doslo je do greske!</h2>
 
-                                <p class='mt-1'>Proverite informacije i probajte ponovo.</p>
-                            </div>
+                                    <p class='mt-1'>Proverite informacije i probajte ponovo.</p>
+                                </div>
 
-                            <div style='text-align: center'>
-                                <button 
-                                    class='size-lg mt-1 bg-danger'
-                                    onClick='location.href = `register.php`'
-                                >
-                                Nazad
-                                </button>
-                            </div>
-                        ";
-                    }
-
-                        //     $generatedId = uniqid();
-
-                        //     $Create_Verification_Query = "
-                        //         INSERT INTO `Verification` (
-                        //             `id`,
-                        //             `for`
-                        //         ) VALUES (
-                        //             '{$generatedId}',
-                        //             '$id'
-                        //         );
-                        //     ";
-
-                        //     $verificationResult = mysqli_query($CONNECTION, $Create_Verification_Query);
-
-                        //     if($verificationResult) {
-                        //         $_SESSION['created'] = array('name' => $_POST['name'],
-                        //         'lastname' => $_POST['lastname'],
-                        //         'email' => $_POST['email'],
-                        //         'type' => 'Trainers',
-                        //         'id' => "{$id}",
-                        //         'for' => "{$generatedId}"
-                        //         );
-                        //         header("Location: sendVerifyEmail.php");
-                        //     }
-                        // } else {
-                        //     echo "
-                        //         <div class='alert bg-danger'>
-                        //             <h2>Doslo je do greske!</h2>
-
-                        //             <p class='mt-1'>Proverite informacije i probajte ponovo.</p>
-                        //         </div>
-
-                        //         <div style='text-align: center'>
-                        //             <button 
-                        //                 class='size-lg mt-1 bg-danger'
-                        //                 onClick='location.href = `register.php`'
-                        //             >
-                        //             Nazad
-                        //             </button>
-                        //         </div>
-                        //     ";
-                        // }
+                                <div style='text-align: center'>
+                                    <button 
+                                        class='size-lg mt-1 bg-danger'
+                                        onClick='location.href = `register.php`'
+                                    >
+                                    Nazad
+                                    </button>
+                                </div>
+                            ";
+                        }
                     } else {
                         $id = uniqid('admin_');
 

@@ -1,27 +1,13 @@
 <?php require "database.php" ?>
 <?php 
-    // if (!$_SESSION['user']) {
-    //     header("Location: login.php");
-    // }
+    if (!$_SESSION['user']) {
+        header("Location: login.php");
+    }
 
-    // if ($_SESSION['type'] != 'admin') {
-    //     header("Location: index.php");
-    // }
+    if ($_SESSION['type'] != 'admin') {
+        header("Location: index.php");
+    }
 ?>
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create News</title>
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="Styles/global.css"/>
-</head>
-<body> -->
     <?php include 'header.php' ;?>
     <?php require 'nav.php' ?>
 
@@ -53,7 +39,7 @@
                         move_uploaded_file($newsImageTempName, $fileDestination);
 
                         $date = date('Y/m/d');
-                        $isGeneral = $_POST['newsType'] == "sports" ? 1 : 0;
+                        $isGeneral = 0;
 
                         $Create_News_Query = "
                             INSERT INTO `News` (
@@ -73,68 +59,8 @@
 
                         $result = mysqli_query($CONNECTION, $Create_News_Query);
 
-                        if ($result) {
-                            echo "
-                                <div class='alert bg-success'>
-                                    <h2>Vest postavljena!</h2>
-
-                                    <p class='mt-1'>Uspesno ste postavili vest.</p>
-                                </div>
-                            ";
-                        } else {
-                            echo "
-                                <div class='alert bg-danger'>
-                                    <h2>Doslo je do greske!</h2>
-                                </div>
-                            ";
-                        }
-                    } else {
-                        echo "
-                            <div class='alert bg-danger'>
-                                <h2>Slika je prevelika!</h2>
-                            </div>
-
-                            <div style='text-align: center'>
-                                <button 
-                                    class='size-lg mt-1 bg-danger'
-                                    onClick='location.href = `adminPage.php`'
-                                >
-                                Nazad
-                                </button>
-                            </div>
-                        ";
                     }
-                } else {
-                    echo "
-                        <div class='alert bg-danger'>
-                            <h2>Doslo je do greske!</h2>
-                        </div>
-
-                        <div style='text-align: center'>
-                            <button 
-                                class='size-lg mt-1 bg-danger'
-                                onClick='location.href = `adminPage.php`'
-                            >
-                            Nazad
-                            </button>
-                        </div>
-                    ";
                 }
-            } else {
-                echo "
-                    <div class='alert bg-danger'>
-                        <h2>Samo slike!</h2>
-                    </div>
-
-                    <div style='text-align: center'>
-                        <button 
-                            class='size-lg mt-1 bg-danger'
-                            onClick='location.href = `adminPage.php`'
-                        >
-                        Nazad
-                        </button>
-                    </div>
-                ";
             }
         }
     ?>
@@ -158,15 +84,6 @@
                     <input type="file" accept="image/*" name="newsImage" id="newsImage" class="size-lg" />
                     <p hidden id="newsImageError" class="text-danger"> Izaberite sliku </p>
                 </div>
-
-                <label class="mt-1" for="newsType"> Vest je: </label>
-                <select 
-                    name="newsType"
-                    id="newsType"
-                >
-                    <option value="general">Uopstena</option>
-                    <option value="sports">Sportska</option>
-                </select>
 
                 <div>
                     <button type="submit" onClick="handleSubmit(event)" class="mt-1 size-lg"> Postavi vest! </button>
@@ -197,16 +114,18 @@
                         while($row = mysqli_fetch_array($result)) {
                             echo "
                                 <form class='info mb-1' method='POST' action='adminPage.php'>
-                                    <div class='info'>
-                                        <div class='flex-row'>
-                                            <h3 style='padding: 0.4em'> {$row['title']} </h3>
-                                            <p> {$row['dateCreated']} </p>
-                                        </div>
-                                        <div style='display: flex; flex-direction: column'>
-                                        <img class='img-resolution' src='{$row['image']}'/>
-                                        <p style='padding: 1em;'> {$row['description']} </p>
-                                        </div>
-                                    </div>
+                                <div class='containers'>
+                                <div class='card'>
+                                  <div class='card__header'>
+                                    <img src='{$row['image']}' alt='card__image' class='card__image' width='600'>
+                                  </div>
+                                  <div class='card__body'>
+                                    <span class='tag tag-blue'>{$row['dateCreated']}</span>
+                                    <h4>{$row['title']}</h4>
+                                    <p>{$row['description']}</p>
+                                  </div>
+                              </div>
+                              </div>
 
                                     <button type='submit' style='width: 100%;' class='size-lg'> Izbrisi </button>
                                     
@@ -221,5 +140,4 @@
     </div>
 
     <script src="JS/createNewsValidation.js?newversion"></script>
-</body>
-</html>
+<?php require 'footer.php' ?>

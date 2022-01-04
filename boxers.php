@@ -1,177 +1,18 @@
 <?php require "database.php" ?>
 <?php
-    // if (!$_SESSION['user']) {
-    //     header("Location: login.php");
-    // }
+    if (!$_SESSION['user']) {
+        header("Location: login.php");
+    }
 
-    // if ($_SESSION['type'] != 'trainer') {
-    //     header("Location: index.php");
-    // }
+    if ($_SESSION['type'] != 'boxer') {
+        header("Location: index.php");
+    }
 ?>
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boxers</title>
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="Styles/global.css"/>
-</head>
-<body> -->
     <?php include 'header.php';?>
     <?php require 'nav.php' ?>
-    <div class="container container-lg index">
-    <?php
-        // if(isset($_POST['accept']) && $_POST['accept'] == 'accept') {
-        //     $Create_In_Training_Query = "
-        //         INSERT INTO In_Training (
-        //             `boxer`,
-        //             `trainer`
-        //         ) VALUES (
-        //             '{$_POST['boxerId']}',
-        //             '{$_SESSION['user']['id']}'
-        //         )
-        //     ";
-
-        //     $result = mysqli_query($CONNECTION, $Create_In_Training_Query);
-
-        //     if($result) {
-        //         echo "
-        //             <div class='alert bg-success'>
-        //                 <h2>Uspesno!</h2>
-
-        //                 <p class='mt-1'>Prihvatili ste poziv za treniranje.</p>
-        //             </div>
-        //         ";
-
-        //         $Delete_Invitation_Query = "
-        //             DELETE FROM Invitations
-        //             WHERE id = {$_POST['invitationId']}
-        //         ";
-
-        //         $result = mysqli_query($CONNECTION, $Delete_Invitation_Query);
-        //     } else {
-        //         echo "
-        //             <div class='alert bg-danger'>
-        //                 <h2>Greska!</h2>
-
-        //                 <p class='mt-1'>Doslo je do greske.</p>
-        //             </div>
-        //         ";
-        //     }
-        // } else if (isset($_POST['deny']) && $_POST['deny'] == 'deny') {
-        //     $Delete_Invitation_Query = "
-        //         DELETE FROM Invitations
-        //         WHERE id = {$_POST['invitationId']}
-        //     ";
-
-        //     $result = mysqli_query($CONNECTION, $Delete_Invitation_Query);
-
-        //     if($result) {
-        //         echo "
-        //             <div class='alert bg-blue'>
-        //                 <h2>Odbili ste pozivnicu!</h2>
-
-        //                 <p class='mt-1'>Uspesno ste odbili pozivnicu.</p>
-        //             </div>
-        //         ";
-        //     }
-        // }
-    ?>
-    
-    <?php
-        // if(isset($_POST['inviteBoxerId'])) {
-        //     $Invite_To_Coach = "
-        //         INSERT INTO `Invitations` (
-        //             `createdBy`,
-        //             `createdFor`,
-        //             `description`
-        //         ) VALUES (
-        //             '{$_SESSION['user']['id']}',
-        //             '{$_POST['inviteBoxerId']}',
-        //             '{$_SESSION['user']['username']} zeli da vezbate kod njega'
-        //         )
-        //     ";
-
-        //     $result = mysqli_query($CONNECTION, $Invite_To_Coach);
-
-        //     if ($result) {
-        //         echo "
-        //             <div class='alert bg-success'>
-        //                 <h2>Pozivnica poslata!</h2>
-
-        //                 <p class='mt-1'>Uspesno ste poslali pozivnicu.</p>
-        //             </div>
-        //         ";
-        //     }
-        // }
-    ?>
-
     <div class="container container-lg mt-2 index">
-        <!-- <div class="header">
-            <h3>
-                Pozivi
-            </h3>
-        </div>
-
-        <div class="info"> -->
-            <?php
-            //     $Invites_Query = "
-            //         SELECT * FROM Invitations
-            //         WHERE createdFor = '{$_SESSION['user']['id']}' 
-            //     ";
-
-            //     $result = mysqli_query($CONNECTION, $Invites_Query);
-
-            //     if(mysqli_num_rows($result) == 0) {
-            //         echo "
-            //             <h4 style='padding: 1em; text-align: center'> Nema pozivnica! </h4>
-            //         ";
-            //     } else {
-            //         while($row = mysqli_fetch_array($result)) {
-            //             $Boxer_Query = "
-            //                 SELECT * FROM Boxers
-            //                 WHERE id = '{$row['createdBy']}'
-            //             ";
-    
-            //             $boxer = mysqli_fetch_array(mysqli_query($CONNECTION, $Boxer_Query));
-    
-            //             echo "
-            //                 <form method='POST' action='boxers.php'>
-            //                 <div class='flex-row'>
-            //                     <img class='avatar' src='{$boxer['profilePicture']}' />
-            //                     <h4> {$boxer['username']} </h4>
-            //                 </div>
-            //                 <div class='flex-row'>
-            //                 <p> {$row['description']} </p>
-            //                 <button
-            //                     class='bg-success'
-            //                     type='submit'
-            //                     name='accept'
-            //                     value='accept'
-            //                 >
-            //                     Prihvati
-            //                 </button>
-    
-            //                 <button
-            //                     class='bg-danger'
-            //                     type='submit'
-            //                     name='deny'
-            //                     value='deny'
-            //                 >
-            //                     Odbij
-            //                 </button>
-            //                 </div>
-            //                 <input hidden name='boxerId' value='{$boxer['id']}' />
-            //                 <input hidden name='invitationId' value='{$row['id']}'/>
-            //                 </form>
-            //             ";
-            //         }
-            //     }
-            // ?>
+        <div class="info">
+            
         <!-- </div> -->
 
         <div class="header mt-2">
@@ -183,7 +24,7 @@
         <div class="info">
             <?php
                 $Available_Trainers_Query = "
-                    SELECT * FROM Trainers
+                    SELECT * FROM trainers
                 ";
 
                 $result = mysqli_query($CONNECTION, $Available_Trainers_Query);
@@ -191,8 +32,6 @@
 
                 echo "<table bgcolor='#f1f1f1'>";
                 while($row = mysqli_fetch_array($result)) {
-                //     if ($row['verified'] == 1) {
-                //         $sex = $row['gender'] == 0 ? 'M' : 'Z';
                         echo "
                              <tr bgcolor='#f1f1f1'>
                                  <td><img class='avatar' src='{$row['profilePicture']}' /></td>
@@ -205,36 +44,27 @@
                 echo "</table>";
 
             ?>
+			
             <?php
-                // $fk_trainers = $_GET['fk_trainers'];
+                $fk_trainers = $_GET['fk_trainers'];
+				$id = (int)$_SESSION['user']['id'];
+                $Update_Boxers_Query = "
+                    UPDATE boxers SET fk_trainers = {$fk_trainers} WHERE id = {$id}";
 
-                // $Update_Boxers_Query = "
-                //     UPDATE Boxers SET fk_trainers={$fk_trainers} WHERE id={$_SESSION['user']['id']}";
-
-                // $result = mysqli_query($CONNECTION, $Available_Boxers_Query);
-                //nemam usera jos uvek ali to je to
+                $result = mysqli_query($CONNECTION, $Update_Boxers_Query);
+                if($result)
+				{
+					echo "
+						<h1>Uspesno ste izabrali lekara</h1>
+					";
+				}
+				else
+					echo "
+						<h1>Nista od konekcije</h1>
+					";
             ?>
 
-            <?php
 
-            //     $Create_In_Training_Query = "
-            //      INSERT INTO In_Training (
-            //          `boxer`,
-            //          `trainer`
-            //      ) VALUES (
-            //          '{$_POST['boxerId']}',
-            //          '{$_SESSION['user']['id']}'
-            //      )
-            //  ";
-
-            // $result = mysqli_query($CONNECTION, $Create_In_Training_Query);
-
-            // if($result)
-                // echo "
-                //     <div class='alert bg-success'>Uspesno ste izabrali lekara</div>
-                // ";
-
-            ?>
         </div>
 
         <div class="header mt-2">
@@ -274,7 +104,7 @@
                  )
              ";
 
-            $result = mysqli_query($CONNECTION, $Invite_To_Coach);
+                    $result = mysqli_query($CONNECTION, $Invite_To_Coach);
                 }
 
 
@@ -291,35 +121,24 @@
 
         <div class="info">
             <?php 
-                // $Get_News_Query = "
-                // SELECT * FROM Invitations
-                // WHERE createdFor = '{$_SESSION['user']['id']}
-                // ";
+                $Get_News_Query = "
+                SELECT * FROM Invitations
+                WHERE createdFor = '{$_SESSION['user']['id']}'
+                ";
 
-                // $result = mysqli_query($CONNECTION, $Get_News_Query);
+                $result = mysqli_query($CONNECTION, $Get_News_Query);
 
-                // if($result) {
-                //     while($row = mysqli_fetch_array($result)) {
-                        // Gets the first 10 characters of the id,
-                        // if those characters are 'tournament'
-                        // then i know i can add stuff for it 
-                        // $tournament = (substr($row['id'], 0, 10) == 'tournament' ? "
-                        //     <button class='size-lg'
-                        //         onClick='location.href = \"tournament.php?id={$row['id']}\"'
-                        //     >
-                        //         Pregledaj
-                        //     </button>
-                        // " : '' );
-
-                        // echo "
-                        //     <div class='info mt-2'>
-                        //         <div style='display: flex; flex-direction: column'>
-                        //         <p style='padding: 1em;'> {$row['description']} </p>
-                        //         </div>
-                        //     </div>
-                        // ";
-                //     }
-                // }
+                if($result) {
+					while($row = mysqli_fetch_array($result)) {
+                        echo "
+                            <div class='info mt-2'>
+                                <div style='display: flex; flex-direction: column'>
+                                <p style='padding: 1em;'> {$row['description']} </p>
+                                </div>
+                            </div>
+                        ";
+                    }
+				}
             ?>
         </div>
 
@@ -332,24 +151,26 @@
 
         <div class="info">
             <?php
-                // $Get_News_Query = "
-                // SELECT weight FROM boxers
-                // WHERE id = '{$_SESSION['user']['id']}
-                // ";
 
-                // $result = mysqli_query($CONNECTION, $Get_News_Query);
+				
+                $Get_News_Query = "
+                SELECT weight FROM boxers
+                WHERE id = {$id}
+                ";
 
-                // if($result) {
-                //     while($row = mysqli_fetch_array($result)) {
-                //         echo "
-                //         <div class='info mt-2'>
-                //             <div style='display: flex; flex-direction: column'>
-                //             <p style='padding: 1em;'> {$row['description']} </p>
-                //             </div>
-                //         </div>
-                //         ";
-                //     }
-                // }
+                $result = mysqli_query($CONNECTION, $Get_News_Query);
+
+                if($result) {
+                    while($row = mysqli_fetch_array($result)) {
+                        echo "
+							<div class='info mt-2'>
+								<div style='display: flex; flex-direction: column'>
+								<p style='padding: 1em;'> {$row['weight']} </p>
+								</div>
+							</div>
+                        ";
+                    }
+                }
 
 
 

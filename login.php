@@ -22,9 +22,7 @@
 <body style="display: grid; place-items: center; background-color: #ccffff"> -->
 <?php include 'header.php';?>
 
-    <div class="container container-sm">
-
-        <!-- <img src="Assets//Hospital_logo.png" class='mt-2' style='width: 100%'/> -->
+<div class="container container-sm">
 
         <form method="POST" action="loginUser.php" class='mt-1'>
             <label for="username"> Korisnicko ime: </label>

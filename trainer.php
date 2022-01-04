@@ -4,70 +4,19 @@
     //     header("Location: login.php");
     // }
 
-    // if ($_SESSION['type'] != 'boxer') {
+    // if ($_SESSION['type'] != 'trainer') {
     //     header("Location: index.php");
     // }
 ?>
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trainer</title>
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="Styles/global.css"/>
-</head>
-<body> -->
     <?php include 'header.php';?>
     <?php require 'nav.php' ?>
 
-    <?php 
-        // if (isset($_POST['trainerId'])) {
-        //     $Remove_Trainer_In_Training = "
-        //         DELETE FROM In_Training
-        //         WHERE
-        //         trainer = '{$_POST['trainerId']}'
-        //     ";
-
-        //     $result = mysqli_query($CONNECTION, $Remove_Trainer_In_Training);
-
-        //     if($result) {
-        //         echo "
-        //             <div class='alert bg-success'>
-        //                 <h2> Ne trenirate vise! </h2>
-
-        //                 <p class='mt-1'> Ne trenirate vise sa tim trenerom. </p>
-        //             </div>
-        //         ";
-        //     } else {
-        //         echo "
-        //             <div class='alert bg-danger'>
-        //                 <h2> Greska! </h2>
-
-        //                 <p class='mt-1'> Doslo je do greske. </p>
-        //             </div>
-        //         ";
-        //     }
-        // }
-    ?>
-
     <div class='container container-lg index'>
         <?php
-            // $Get_My_Trainer_Query = "
-            //     SELECT * FROM Boxers
-            //     RIGHT JOIN
-            //     Trainers ON Trainers.id = In_Training.trainer
-            //     WHERE
-            //     In_Training.boxer = '{$_SESSION['user']['id']}'
-            // ";
-
             $Get_All_Patients_Query = "
                 SELECT * FROM Boxers
 
-                WHERE Boxers.fk_trainers = '{$_SESSION['user']['id']}'
+                WHERE Boxers.fk_trainers = {$_SESSION['user']['id']}
             ";
             $result = mysqli_query($CONNECTION, $Get_All_Patients_Query);
 
@@ -79,18 +28,12 @@
                         </h3>
                     </div>
                 ";
-                 if (mysqli_num_rows($result) == 0) {
-                     echo "
-                         <div class='grid-center' style='min-height: 50vh'>
-                             <h1> Jos uvek nemate pacijenta! </h1>
-                         </div>
-                     ";
-                } else {
+                if (mysqli_num_rows($result) > 0) {
                     $boxer = mysqli_fetch_array($result);
 
                     echo "
                     <form method='POST' action='trainer.php' class='mb-2 mt-1' enctype='multipart/form-data'>
-                        <div class='mt-1' style='min-width: 460px; background-color:white; padding: 0.4em'>
+                        <div class='mt-1' style='min-width: 460px; padding: 0.4em'>
                             <div class='flex-row' style='justify-content: center'>
                                 <h3> {$boxer['name']} </h3>
                                 <h3 style='margin-left: 0.5em'> {$boxer['lastname']} </h3>
@@ -182,7 +125,6 @@
             ";
 
             $result = mysqli_query($CONNECTION, $Create_Message_Query);
-
 
         }
 

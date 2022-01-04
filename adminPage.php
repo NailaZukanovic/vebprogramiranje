@@ -1,26 +1,14 @@
 <?php require "database.php" ?>
 <?php 
-    // if (!$_SESSION['user']) {
-    //     header("Location: login.php");
-    // }
+    if (!$_SESSION['user']) {
+        header("Location: login.php");
+    }
 
-    // if ($_SESSION['type'] != 'admin') {
-    //     header("Location: index.php");
-    // }
+    if ($_SESSION['type'] != 'admin') {
+        header("Location: index.php");
+    }
 ?>
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin page</title>
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="Styles/global.css"/>
-</head>
-<body> -->
+<!-- <body>  -->
     <?php require 'header.php' ?>
     <?php require 'nav.php' ?>
     
@@ -31,120 +19,6 @@
             ";
 
             $result = mysqli_query($CONNECTION, $Delete_News_Query);
-
-        //     if ($result) {
-        //         echo "
-        //             <div class='alert bg-success'>
-        //                 <h2>Vest izbrisana!</h2>
-        
-        //                 <p class='mt-1'>Uspesno ste izbrisali vest.</p>
-        //             </div>
-        //         ";
-        //     }
-        }
-    ?>
-
-    <?php
-        if(isset($_POST['allow'])) {
-            if($_POST['type'] == 'boxer') {
-                $Approve_Boxer_Query = "
-                    UPDATE Boxers SET approved=1 WHERE id='{$_POST['id']}'
-                ";
-
-                $result = mysqli_query($CONNECTION, $Approve_Boxer_Query);
-
-                // if($result) {
-                //     echo "
-                //         <div class='alert bg-success'>
-                //             <h2>Bokser odobren!</h2>
-            
-                //             <p class='mt-1'>Uspesno ste odobrili boksera.</p>
-                //         </div>
-                //     ";
-                // } else {
-                //     echo "
-                //         <div class='alert bg-danger'>
-                //             <h2>Doslo je do greske!</h2>
-            
-                //             <p class='mt-1'>Doslo je do greske.</p>
-                //         </div>
-                //     ";
-                // }             
-            } else {
-                $Approve_Trainer_Query = "
-                    UPDATE Trainers SET approved='1' WHERE id='{$_POST['id']}'
-                ";
-
-                $result = mysqli_query($CONNECTION, $Approve_Trainer_Query);
-
-                // if($result) {
-                //     echo "
-                //         <div class='alert bg-success'>
-                //             <h2>Trener odobren!</h2>
-            
-                //             <p class='mt-1'>Uspesno ste odobrili trenera.</p>
-                //         </div>
-                //     ";
-                // } else {
-                //     echo "
-                //         <div class='alert bg-danger'>
-                //             <h2>Doslo je do greske!</h2>
-            
-                //             <p class='mt-1'>Doslo je do greske.</p>
-                //         </div>
-                //     ";
-                // }            
-            }
-        } else if(isset($_POST['deny'])) {
-            if($_POST['type'] == 'boxer') {
-                $Delete_Boxer_Query = "
-                    DELETE FROM Boxers WHERE id='{$_POST['id']}'
-                ";
-
-                $result = mysqli_query($CONNECTION, $Delete_Boxer_Query);
-
-                // if($result) {
-                //     echo "
-                //         <div class='alert bg-success'>
-                //             <h2>Bokser odbijen!</h2>
-            
-                //             <p class='mt-1'>Uspesno ste odbili boksera.</p>
-                //         </div>
-                //     ";
-                // } else {
-                //     echo "
-                //         <div class='alert bg-danger'>
-                //             <h2>Doslo je do greske!</h2>
-            
-                //             <p class='mt-1'>Doslo je do greske.</p>
-                //         </div>
-                //     ";
-                // }     
-            } else {
-                $Delete_Trainer_Query = "
-                    DELETE FROM Trainers WHERE id='{$_POST['id']}'
-                ";
-
-                $result = mysqli_query($CONNECTION, $Delete_Trainer_Query);
-
-                // if($result) {
-                //     echo "
-                //         <div class='alert bg-success'>
-                //             <h2>Trener odbijen!</h2>
-            
-                //             <p class='mt-1'>Uspesno ste odbili trenera.</p>
-                //         </div>
-                //     ";
-                // } else {
-                //     echo "
-                //         <div class='alert bg-danger'>
-                //             <h2>Doslo je do greske!</h2>
-            
-                //             <p class='mt-1'>Doslo je do greske.</p>
-                //         </div>
-                //     ";
-                // }  
-            }
         }
     ?>
 
@@ -157,20 +31,16 @@
             </div>
 
             <div class="info">
-                <h4 style="padding: 1em; border-bottom: 2px solid black">Bokseri</h4>
+                <h4 style="padding: 1em; border-bottom: 2px solid black">Pacijenti</h4>
                 <?php
                     $Pending_Boxers_Query = "
-                        SELECT * FROM `Boxers` WHERE approved=0
+                        SELECT * FROM `boxers` WHERE approved=0
                     ";
 
                     $boxersResult = mysqli_query($CONNECTION, $Pending_Boxers_Query);
 
                     
-                    if(mysqli_num_rows($boxersResult) == 0) {
-                        echo "
-                            <h1 style='padding: 0.4em; text-align: center;'> Nema novih boksera za odobravanje </h1>
-                        ";
-                    } else {
+                    if(mysqli_num_rows($boxersResult) > 0) {
                         while($row = mysqli_fetch_array($boxersResult)) {
                             echo "
                                 <form method='POST' action='adminPage.php'>
@@ -205,20 +75,48 @@
                 ?>
             </div>
 
+    <?php
+        if(isset($_POST['allow'])) {
+            if($_POST['type'] == 'boxer') {
+                $Approve_Boxer_Query = "
+                    UPDATE boxers SET approved=1 WHERE id='{$_POST['id']}'
+                ";
+
+                $result = mysqli_query($CONNECTION, $Approve_Boxer_Query);
+            } else {
+                $Approve_Trainer_Query = "
+                    UPDATE trainers SET approved='1' WHERE id='{$_POST['id']}'
+                ";
+
+                $result = mysqli_query($CONNECTION, $Approve_Trainer_Query);
+            }
+        } else if(isset($_POST['deny'])) {
+            if($_POST['type'] == 'boxer') {
+                $Delete_Boxer_Query = "
+                    DELETE FROM boxers WHERE id='{$_POST['id']}'
+                ";
+
+                $result = mysqli_query($CONNECTION, $Delete_Boxer_Query);}
+            } else {
+                $Delete_Trainer_Query = "
+                    DELETE FROM trainers WHERE id='{$_POST['id']}'
+                ";
+
+                $result = mysqli_query($CONNECTION, $Delete_Trainer_Query); }
+    ?>
+
+
+
             <div class="info mt-2">
-                <h4 style="padding: 1em; border-bottom: 2px solid black">Treneri</h4>
+                <h4 style="padding: 1em; border-bottom: 2px solid black">Lekari</h4>
                 <?php
                     $Pending_Trainers_Query = "
-                        SELECT * FROM `Trainers` WHERE approved=0
+                        SELECT * FROM `trainers` WHERE approved=0
                     ";
 
                     $trainersResult = mysqli_query($CONNECTION, $Pending_Trainers_Query);
 
-                    if(mysqli_num_rows($trainersResult) == 0) {
-                        echo "
-                            <h1 style='padding: 0.4em; text-align: center;'> Nema novih trenera za odobravanje </h1>
-                        ";
-                    } else {
+                    if(mysqli_num_rows($trainersResult) > 0) {
                         while($row = mysqli_fetch_array($trainersResult)) {
                             echo "
                                 <form method='POST' action='adminPage.php'>
@@ -282,7 +180,7 @@
                         <input type='text' name='izmena' id='izmena' class='form-input size-lg' style='width:70%'/>
                         <button type='submit'class='mt-1 size-lg' name='izmenaKontakta' id='izmenaKontakta'> :) </button>
                     </form>
-                "       
+                ";       
                 
 
             ?>
@@ -290,7 +188,6 @@
 
         </div>
     </div>
-<!-- </body>
-</html> -->
+
 
 <?php include 'footer.php' ?>

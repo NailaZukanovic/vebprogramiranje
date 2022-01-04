@@ -5,8 +5,8 @@
   <?php
 
     $sadrzajKontakta = 'Duis autem vel eum iriure dolor in hendrerit n vuew lputate velit esse molestie conseu vel illum dolore eufe ugiat nulla facilisis at vero.';
-    
-    $sadrzajKontakta =  $_POST['izmena'];
+    if(isset($_POST['izmenaKontakta']))
+      $sadrzajKontakta =  $_POST['izmena'];
 
   ?>
   <!-- Content -->
@@ -39,11 +39,11 @@
             <div id="container">
               <h6>Our Address</h6>
               <p>
-          Online Hospital Management System , Bangalore<br />
+          Hospital , Bangalore<br />
 
           <strong>tel</strong>:080 65110488<br />
 
-          <strong>Email ID</strong>: ohms@gmail.com</p>
+          <strong>Email ID</strong>: hospital@gmail.com</p>
         
       </section>
     
@@ -53,7 +53,7 @@
 </div>
     </div>
     <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&libraries=&v=weekly&channel=2"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY2fo7BotDab6xOnBWopA2IEAqntcVw4s&callback=initMap&libraries=&v=weekly&channel=2"
     async
     ></script>
 

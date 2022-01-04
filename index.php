@@ -1,18 +1,4 @@
 <?php require "database.php" ?>
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Home</title>
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="Styles/global.css"/>
-</head>
-<body> -->
     <?php include 'header.php';?>
     <?php require 'nav.php' ?>
 
@@ -45,12 +31,6 @@
                 data-x="center" data-hoffset="0" 
                 data-y="center" data-voffset="0" 
                 style="z-index: 7;  font-size:22px; color:gray; font-weight:500; max-width: auto; max-height: auto; white-space: nowrap;">Najbolje usluge u gradu</div>
-            
-            <!-- LAYER NR. 4 -->
-            <!-- <div class="tp-caption lfb tp-resizeme scroll" 
-                data-x="center" data-hoffset="0" 
-                data-y="center" data-voffset="120"
-                style="z-index: 8;"><a href="#." class="btn">Book Now</a> </div> -->
           </li>
           
           <!-- SLIDE  -->
@@ -75,12 +55,6 @@
                 data-x="left" data-hoffset="400" 
                 data-y="center" data-voffset="30" 
                 style="z-index: 7; font-size:16px; color:#000; font-weight:500; line-height:26px; max-width: auto; max-height: auto; white-space: nowrap;">Poboljšane dijagnostičke performanse i povećano zadovoljstvo pacijenata <br> uz uživanje lekara.</div>
-            
-            <!-- LAYER NR. 4
-            <div class="tp-caption lfb tp-resizeme scroll" 
-                data-x="left" data-hoffset="400" 
-                data-y="center" data-voffset="140"
-                style="z-index: 8;"><a href="#." class="btn">CONTACT NOW</a> </div> -->
           </li>
           
           <!-- SLIDE  -->
@@ -263,28 +237,21 @@
 
                 if($result) {
                     while($row = mysqli_fetch_array($result)) {
-                        // Gets the first 10 characters of the id,
-                        // if those characters are 'tournament'
-                        // then i know i can add stuff for it 
-                        // $tournament = (substr($row['id'], 0, 10) == 'tournament' ? "
-                        //     <button class='size-lg'
-                        //         onClick='location.href = \"tournament.php?id={$row['id']}\"'
-                        //     >
-                        //         Pregledaj
-                        //     </button>
-                        // " : '' );
-
                         echo "
-                            <div class='info mt-2'>
-                                <div class='flex-row'>
-                                    <h3 style='padding: 0.4em'> {$row['title']} </h3>
-                                    <p> {$row['dateCreated']} </p>
-                                </div>
-                                <div style='display: flex; flex-direction: column'>
-                                <img class='img-resolution' src='{$row['image']}'/>
-                                <p style='padding: 1em;'> {$row['description']} </p>
-                                </div>
-                            </div>
+                        <div class='containers'>
+                          <div class='card'>
+                          <div class='card__header'>
+                            <img src='{$row['image']}' alt='card__image' class='card__image' width='600'>
+                          </div>
+                          <div class='card__body'>
+                            <span class='tag tag-blue'>{$row['dateCreated']}</span>
+                            <h4>{$row['title']}</h4>
+                            <p>{$row['description']}</p>
+                          </div>
+                          </div>  
+                        </div>
+                        
+                        
                         ";
                     }
                 }

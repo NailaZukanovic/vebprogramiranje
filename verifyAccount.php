@@ -16,17 +16,17 @@
 <?php require 'nav.php' ?>
 
 <?php
-        // echo "
-        //     <nav>
-        //         <ul>
-        //             <li>
-        //                 <a href='index.php'>
-        //                     <img src=\"Assets//Boxing_Logo.png\" style='width: 4em; height: 3em;'/>
-        //                 </a>
-        //             </li>
-        //         </ul>
-        //     </nav>
-        // ";
+        echo "
+            <nav>
+                <ul>
+                    <li>
+                        <a href='index.php'>
+                            <img src=\"Assets//Boxing_Logo.png\" style='width: 4em; height: 3em;'/>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        ";
         $Check_Verification = "
             SELECT * FROM Verification WHERE
             id='{$_GET['for']}'

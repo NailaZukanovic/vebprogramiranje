@@ -65,7 +65,7 @@
                 <div>
                     <label class="mt-1" for="profilePicture"> Profilna: </label>
                     <input type="file" accept="image/*" name="profilePicture" id="profilePicture" class="size-lg" />
-                    <p hidden id="profilePictureError" class="text-danger"> Izaberite profilnu sliku </p>
+                    <p hidden id="profilePictureError" class="text-danger"> Izaberite profilnu sliku! </p>
                 </div>
 
                 <label for="email"> Email: </label>
@@ -83,11 +83,11 @@
 
                 <label class="mt-1" for="confirmPassword"> Potvride lozinku: </label>
                 <input type="password" name="confirmPassword" id="confirmPassword" class="form-input size-lg" />
-                <p hidden id="confirmPasswordError" class="text-danger"> Lozinke se moraju poklapati </p>
+                <p hidden id="confirmPasswordError" class="text-danger"> Lozinke nisu iste </p>
                 <p> Mora biti isti kao lozinka </p>
             </div>
 
-            <label class="mt-1" for="accountType"> Ja sam: </label>
+            <label class="mt-1" for="accountType"> Prijavljujem se kao: </label>
             <select 
                 name="accountType"
                 id="accountType"
@@ -103,16 +103,15 @@
                 class="mt-1"
                 id="accountTypeBoxer"
             >
-                <label for="technique"> Pocnite svoj karton </label>
-                <input class="form-input" id="weight" name="weight" type="text" class="form-input size-lg" />
-                <p hidden id="weightError" class="text-danger"> Niste uneli nikakav problem, cestitam!</p>
+                <label for="weight"> Zapocnite svoj karton: </label>
+                <input class="form-input" id="weight" name="weight" />
             </div>
 
-            <button type="submit" onClick="handleSubmit(event)" class="mt-1 size-lg" name="register"> Registruj se </button>
+            <button type="submit" onClick="handleSubmit(event)" class="mt-1 size-lg"> Registruj me! </button>
 
             <div class="mt-1" style="display: flex; flex-direction: row; margin-bottom: 1em;">
                 <p>Vec ste registrovani?</p>
-                <a href="login.php">Prijavi se</a>
+                <a href="login.php">Prijavi se!</a>
             </div>
         </form>
     </div>

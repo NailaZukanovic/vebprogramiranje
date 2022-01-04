@@ -1,5 +1,5 @@
 <?php require "database.php"; ?>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,9 +12,11 @@
     <link rel="stylesheet" href="Styles/global.css"/>
 
 </head>
-<body>
+<body> -->
+    <?php include 'header.php' ?>
+    <?php include 'nav.php' ?>
     <div class="block-center">
-        <?php
+    <?php
             $username = strtolower($_POST['username']); 
             $password = $_POST['password'];
 
@@ -63,29 +65,29 @@
                 $row = mysqli_fetch_assoc($trainerUsernames);
 
                 if (password_verify($_POST['password'], $row['password'])) {
-                    // if($row['verified'] == 1 && $row['approved'] == 1) {
+                    if($row['verified'] == 1 && $row['approved'] == 1) {
                         $_SESSION['user'] = $row;
                         $_SESSION['type'] = 'trainer';
-                    // } else {
-                    //     echo "
-                    //             <div style='text-align: center'>
-                    //                 <div class='alert bg-danger'>
-                    //                     <h2>Niste verifikovani ili nalog nije odobren!</h2>
+                    } else {
+                        echo "
+                                <div style='text-align: center'>
+                                    <div class='alert bg-danger'>
+                                        <h2>Niste verifikovani ili nalog nije odobren!</h2>
                     
-                    //                     <p class='mt-1'>Niste se verifikovali ili vas nalog jos uvek nije odobren.</p>
-                    //                 </div>
+                                        <p class='mt-1'>Niste se verifikovali ili vas nalog jos uvek nije odobren.</p>
+                                    </div>
                     
-                    //                 <button 
-                    //                     class='size-lg mt-1 bg-danger'
-                    //                     onClick='location.href = `login.php`'
-                    //                 >
-                    //                     Prijavite se
-                    //                 </button>
-                    //             </div>
-                    //         ";
-                    //     die();
+                                    <button 
+                                        class='size-lg mt-1 bg-danger'
+                                        onClick='location.href = `login.php`'
+                                    >
+                                        Prijavite se
+                                    </button>
+                                </div>
+                            ";
+                        die();
                     }
-                else {
+                } else {
                     echo "
                         <div style='text-align: center'>
                             <div class='alert bg-danger'>
@@ -108,29 +110,29 @@
                 $row = mysqli_fetch_assoc($boxerUsernames);
     
                 if (password_verify($_POST['password'], $row['password'])) {
-                    // if($row['verified'] == 1 && $row['approved'] == 1) {
+                    if($row['verified'] == 1 && $row['approved'] == 1) {
                         $_SESSION['user'] = $row;
                         $_SESSION['type'] = 'boxer';
-                    // } else {
-                    //     echo "
-                    //             <div style='text-align: center'>
-                    //                 <div class='alert bg-danger'>
-                    //                     <h2>Niste verifikovani ili nalog nije odobren!</h2>
+                    } else {
+                        echo "
+                                <div style='text-align: center'>
+                                    <div class='alert bg-danger'>
+                                        <h2>Niste verifikovani ili nalog nije odobren!</h2>
                     
-                    //                     <p class='mt-1'>Niste se verifikovali ili vas nalog jos uvek nije odobren.</p>
-                    //                 </div>
+                                        <p class='mt-1'>Niste se verifikovali ili vas nalog jos uvek nije odobren.</p>
+                                    </div>
                     
-                    //                 <button 
-                    //                     class='size-lg mt-1 bg-danger'
-                    //                     onClick='location.href = `login.php`'
-                    //                 >
-                    //                     Prijavite se
-                    //                 </button>
-                    //             </div>
-                    //         ";
-                    //     die();
+                                    <button 
+                                        class='size-lg mt-1 bg-danger'
+                                        onClick='location.href = `login.php`'
+                                    >
+                                        Prijavite se
+                                    </button>
+                                </div>
+                            ";
+                        die();
                     }
-                    if (!(password_verify($_POST['password'], $row['password']))){
+                } else {
                     echo "
                         <div style='text-align: center'>
                             <div class='alert bg-danger'>

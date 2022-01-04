@@ -69,7 +69,7 @@ const lastnamePattern = /^[a-zA-Z]{3,24}$/;
 const datePattern = /^[0-9]{2}-[0-9]{2}-[0-9]{4}$/;
 const jmbgPattern = /^[0-9]{13}$/;
 const usernamePattern = /^(?=[a-zA-Z0-9._]{3,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
-const emailPattern = /^(\d{1,5}|[^\W]{1,3}|[a-zA-Z]+)([a-z]){1,}([!#$%^&*()<>_?:"}{\[\]a-z]){1,}@([a-zA-Z.]){1,}\.([a-z]){1,}$/;
+const emailPattern = /^(\d{1,5}|[^\W]{1,3}|[a-zA-Z]+)([a-z]){1,}([!#$%^&*()<>_?:"}{\[\]a-z]){1,}@([a-zA-Z.]){1,}\.([a-z]){1,}$/
 
 const handleSubmit = e => {
     let valid = true;
@@ -106,13 +106,6 @@ const handleSubmit = e => {
     } else {
         genderError.hidden = false;
         valid = false;
-    }
-
-    if(datePattern.test(birthDate.value)) {
-       birthDateError.hidden = true; 
-    } else {
-       birthDateError.hidden = true; 
-       valid = false;
     }
 
     if(jmbgPattern.test(jmbg.value)) {
@@ -158,7 +151,7 @@ const handleSubmit = e => {
     }
 
     if(accountType.value === 'boxer') {
-        if (weight.value !== "") {
+        if (weight.value >= 63 && technique.value <= 185) {
             weightError.hidden = true;
         } else {
             weightError.hidden = false;

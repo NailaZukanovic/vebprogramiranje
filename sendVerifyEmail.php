@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,9 @@
 
     <link rel="stylesheet" href="Styles/global.css"/>
 </head>
-<body>
+<body> -->
+    <?php include 'header.php' ?>
+
     <?php
         session_start();
 
@@ -37,15 +39,15 @@
             $mail->isSMTP();                                            // Send using SMTP
             $mail->Host       = 'smtp.live.com';                    // Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'boxingtournaments@hotmail.com';                     // SMTP username
-            $mail->Password   = 'jebemTiPhp69!';                               // SMTP password
+            $mail->Username   = 'jakicmilicaa@gmail.com';                     // SMTP username
+            $mail->Password   = 'Umomsrcurastekopriva';                               // SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
             $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
             //Recipients
-            $mail->setFrom('boxingtournaments@hotmail.com', 'noreply@boxingtournaments@hotmail.com');
+            $mail->setFrom('jakicmilicaa@gmail.com', 'noreply@jakicmilicaa@gmail.com');
             $mail->addAddress($email, `{$name} {$lastname}`);     // Add a recipient
-            $mail->addReplyTo('boxingtournaments@hotmail.com', 'NoReply');
+            $mail->addReplyTo('jakicmilicaa@gmail.com', 'NoReply');
 
             // Attachments
             // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
@@ -305,5 +307,6 @@
             ";
         }
     ?>
-</body>
-</html>
+    <?php include 'footer.php' ?>
+<!-- </body>
+</html> -->
